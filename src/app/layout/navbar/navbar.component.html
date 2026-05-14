@@ -3,19 +3,19 @@
     <nav class="navbar__inner" aria-label="Navegação principal">
 
       <!-- Logo / Wordmark -->
-      <a href="#home" class="navbar__logo" aria-label="Estevão Santos — início">
+      <button class="navbar__logo" (click)="navigate('#inicio')" aria-label="Estevão Santos — início" type="button">
         <ui-profile name="Estevão Santos" avatarUrl="/profile.jpeg" [verified]="true"></ui-profile>
-      </a>
+      </button>
 
       <!-- Desktop links -->
       <ul class="navbar__links" role="list">
         @for (link of links; track link.anchor) {
           <li>
-            <a
-              [href]="link.anchor"
+            <button
               class="navbar__link"
-              (click)="closeMenu()"
-            >{{ link.label }}</a>
+              (click)="navigate(link.anchor)"
+              type="button"
+            >{{ link.label }}</button>
           </li>
         }
       </ul>
@@ -42,7 +42,7 @@
         </button>
 
         <!-- CTA -->
-        <ui-button [variant]="'primary'" [size]="'sm'" [ariaLabel]="'Fale comigo'">
+        <ui-button variant="primary" size="sm" ariaLabel="Fale comigo" (clicked)="navigate('#contato')">
           Fale comigo
         </ui-button>
 
@@ -77,16 +77,16 @@
   <ul class="navbar__mobile-links" role="list">
     @for (link of links; track link.anchor) {
       <li>
-        <a
-          [href]="link.anchor"
+        <button
           class="navbar__mobile-link"
-          (click)="closeMenu()"
-        >{{ link.label }}</a>
+          (click)="navigate(link.anchor)"
+          type="button"
+        >{{ link.label }}</button>
       </li>
     }
   </ul>
   <div class="navbar__mobile-cta">
-    <ui-button [variant]="'primary'" [size]="'lg'">
+    <ui-button variant="primary" size="lg" (clicked)="navigate('#contato')">
       Fale comigo
     </ui-button>
   </div>

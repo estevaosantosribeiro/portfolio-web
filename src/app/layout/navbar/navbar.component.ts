@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { ThemeService } from '../../core/services/theme.service';
+import { ScrollService } from '../../core/services/scroll.service';
 import { UiButtonComponent } from '../../shared/components/button/ui-button.component';
 import { UiContainerComponent } from '../../shared/components/container/ui-container.component';
 import { UiProfileComponent } from '../../shared/components/profile/ui-profile.component';
@@ -29,6 +30,7 @@ interface NavLink {
 export class NavbarComponent implements OnInit {
   private readonly platformId = inject(PLATFORM_ID);
   readonly themeService       = inject(ThemeService);
+  private readonly scrollSvc  = inject(ScrollService);
 
   readonly scrolled     = signal(false);
   readonly menuOpen     = signal(false);
@@ -59,5 +61,10 @@ export class NavbarComponent implements OnInit {
 
   closeMenu(): void {
     this.menuOpen.set(false);
+  }
+
+  navigate(anchor: string): void {
+    this.closeMenu();
+    this.scrollSvc.scrollTo(anchor);
   }
 }

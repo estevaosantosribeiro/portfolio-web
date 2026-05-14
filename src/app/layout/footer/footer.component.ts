@@ -8,6 +8,7 @@ import {
   ElementRef,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { ScrollService } from '../../core/services/scroll.service';
 import { gsap } from 'gsap';
 
 interface NavLink {
@@ -31,6 +32,7 @@ interface SocialLink {
 export class FooterComponent implements AfterViewInit, OnDestroy {
   private readonly platformId = inject(PLATFORM_ID);
   private readonly host       = inject(ElementRef<HTMLElement>);
+  private readonly scrollSvc  = inject(ScrollService);
   private observer?: IntersectionObserver;
 
   readonly year = new Date().getFullYear();
@@ -52,9 +54,7 @@ export class FooterComponent implements AfterViewInit, OnDestroy {
   ];
 
   scrollTo(anchor: string): void {
-    if (!isPlatformBrowser(this.platformId)) return;
-    const el = document.querySelector(anchor);
-    el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    this.scrollSvc.scrollTo(anchor);
   }
 
   ngAfterViewInit(): void {
