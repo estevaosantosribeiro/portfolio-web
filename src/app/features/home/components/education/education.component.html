@@ -197,39 +197,4 @@
 
   </div>
 
-  <!-- ─── Institution marquee ───────────────────────────────────────────────── -->
-  <div class="edu__marquee-section">
-
-    <p class="edu__marquee-label">Onde aprendi</p>
-
-    <div class="edu__marquee" aria-label="Instituições de ensino">
-      <div class="edu__marquee-track" aria-hidden="true">
-        @for (logo of marqueeLogos; track logo.name) {
-          <div class="edu__marquee-item">
-            <img class="edu__marquee-logo" [src]="logo.logoSrc" [alt]="logo.alt" loading="lazy"
-                 (error)="$any($event.target).style.display='none'" />
-            <div class="edu__marquee-logo-placeholder" aria-hidden="true">
-              <span class="edu__marquee-logo-text">{{ logo.name }}</span>
-            </div>
-          </div>
-        }
-        <!-- Duplicate for seamless loop -->
-        @for (logo of marqueeLogos; track logo.name + '_b') {
-          <div class="edu__marquee-item" aria-hidden="true">
-            <img class="edu__marquee-logo" [src]="logo.logoSrc" [alt]="logo.alt" loading="lazy"
-                 (error)="$any($event.target).style.display='none'" />
-            <div class="edu__marquee-logo-placeholder">
-              <span class="edu__marquee-logo-text">{{ logo.name }}</span>
-            </div>
-          </div>
-        }
-      </div>
-    </div>
-
-    <!-- Edge fade masks -->
-    <div class="edu__marquee-fade edu__marquee-fade--left"  aria-hidden="true"></div>
-    <div class="edu__marquee-fade edu__marquee-fade--right" aria-hidden="true"></div>
-
-  </div>
-
 </section>

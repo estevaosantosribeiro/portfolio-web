@@ -257,11 +257,6 @@
   position: relative;
   width: clamp(56px, 6vw, 72px);
   height: clamp(56px, 6vw, 72px);
-  border-radius: var(--radius-xl);
-  border: 1px solid var(--color-border);
-  background: var(--color-surface-2);
-  overflow: hidden;
-  box-shadow: var(--shadow-sm);
 
   // Inner highlight
   &::after {
@@ -279,7 +274,6 @@
     width: clamp(52px, 5.5vw, 68px);
     height: clamp(52px, 5.5vw, 68px);
     border-color: var(--color-border-strong);
-    box-shadow: var(--shadow-md);
   }
 }
 
@@ -509,32 +503,6 @@
     filter: blur(28px);
     z-index: 0;
     opacity: 0.8;
-  }
-}
-
-// ─── Marquee section ───────────────────────────────────────────────────────────
-.edu__marquee-section {
-  position: relative;
-  z-index: 1;
-  margin-top: clamp(var(--space-20), 8vw, var(--space-32));
-  padding-top: clamp(var(--space-12), 4vw, var(--space-16));
-  overflow: hidden;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: min(480px, 80%);
-    height: 1px;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      var(--color-border-strong) 30%,
-      var(--color-border-strong) 70%,
-      transparent
-    );
   }
 }
 
