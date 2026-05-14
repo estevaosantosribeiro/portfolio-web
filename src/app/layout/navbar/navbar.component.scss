@@ -13,10 +13,11 @@
   transition:
     background var(--duration-slow) var(--ease-default),
     border-color var(--duration-slow) var(--ease-default),
-    backdrop-filter var(--duration-slow) var(--ease-default);
+    box-shadow var(--duration-slow) var(--ease-default);
 
   &--scrolled {
-    @include m.glass;
+    background: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
     box-shadow: var(--shadow-sm);
   }
 }

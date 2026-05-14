@@ -58,8 +58,8 @@ $breakpoints: (
   -webkit-backdrop-filter: blur(14px) saturate(1.4);
   border: 1px solid rgba(255, 255, 255, 0.3);
 
-  [data-theme='dark'] & {
-    background: rgba(17, 17, 16, 0.8);
+  :root[data-theme='dark'] & {
+    background: rgba(17, 17, 16, 0.85);
     border-color: rgba(255, 255, 255, 0.07);
   }
 }
