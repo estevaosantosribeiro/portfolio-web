@@ -57,8 +57,8 @@ export const staggerChildren = (selector = ':scope > *', delay = 80): AnimationT
   ]);
 
 export const loadingExit: AnimationTriggerMetadata = trigger('loadingExit', [
-  state('visible', style({ opacity: 1, transform: 'scale(1)', pointerEvents: 'auto' })),
-  state('hidden',  style({ opacity: 0, transform: 'scale(1.06)', pointerEvents: 'none' })),
+  state('visible', style({ opacity: 1, transform: 'scale(1)' })),
+  state('hidden',  style({ opacity: 0, transform: 'scale(1.06)' })),
   transition('visible => hidden', [
     animate(`700ms 200ms ${EASING.default}`),
   ]),

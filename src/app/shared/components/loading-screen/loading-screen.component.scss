@@ -8,6 +8,12 @@
   justify-content: center;
   background: #090909;
   overflow: hidden;
+
+  &.ng-animating,
+  &[style*="opacity: 0"],
+  &[style*="opacity:0"] {
+    pointer-events: none;
+  }
 }
 
 // ─── Background atmosphere ────────────────────────────────────────────────────

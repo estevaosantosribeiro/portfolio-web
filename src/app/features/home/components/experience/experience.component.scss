@@ -280,14 +280,6 @@ $line-width:       1px;
   border-radius: 50%;
   border: 1px solid var(--color-border);
   background: var(--color-bg);
-  transition:
-    border-color var(--duration-slow) var(--ease-out),
-    box-shadow   var(--duration-slow) var(--ease-out);
-
-  .exp__entry:hover & {
-    border-color: var(--color-border-strong);
-    box-shadow: 0 0 0 6px var(--color-accent-soft);
-  }
 }
 
 .exp__node-dot {
@@ -297,9 +289,6 @@ $line-width:       1px;
   height: $node-size;
   border-radius: 50%;
   background: var(--color-text-primary);
-  transition: transform var(--duration-slow) var(--ease-spring);
-
-  .exp__entry:hover & { transform: scale(1.25); }
 }
 
 // ─── Date meta ─────────────────────────────────────────────────────────────────
@@ -357,43 +346,6 @@ $line-width:       1px;
   cursor: default;
   will-change: opacity, transform;
 
-  transition:
-    border-color var(--duration-slow) var(--ease-out),
-    box-shadow   var(--duration-slow) var(--ease-out),
-    transform    var(--duration-slow) var(--ease-out),
-    background   var(--duration-base) var(--ease-default);
-
-  &:hover {
-    border-color: var(--color-border-strong);
-    background: var(--color-surface-2);
-    box-shadow: var(--shadow-lg);
-    transform: translateY(-3px);
-  }
-
-  // Animated border gradient on hover
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 1px;
-    background: linear-gradient(
-      135deg,
-      var(--color-border-strong) 0%,
-      transparent 50%,
-      var(--color-border-strong) 100%
-    );
-    mask:
-      linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
-    mask-composite: exclude;
-    -webkit-mask-composite: xor;
-    opacity: 0;
-    transition: opacity var(--duration-slow) var(--ease-out);
-    pointer-events: none;
-  }
-
-  &:hover::before { opacity: 1; }
 }
 
 // ─── Card glow ─────────────────────────────────────────────────────────────────
@@ -408,11 +360,6 @@ $line-width:       1px;
   opacity: 0;
   filter: blur(48px);
   pointer-events: none;
-  transition: opacity var(--duration-slow) var(--ease-out);
-
-  .exp__card:hover & { opacity: 0.03; }
-
-  [data-theme='dark'] .exp__card:hover & { opacity: 0.07; }
 }
 
 // ─── Card top row ──────────────────────────────────────────────────────────────
@@ -434,16 +381,6 @@ $line-width:       1px;
   background: var(--color-surface-2);
   overflow: hidden;
   box-shadow: var(--shadow-xs);
-  transition:
-    border-color var(--duration-slow) var(--ease-out),
-    transform    var(--duration-slow) var(--ease-spring),
-    box-shadow   var(--duration-slow) var(--ease-out);
-
-  .exp__card:hover & {
-    border-color: var(--color-border-strong);
-    transform: scale(1.04);
-    box-shadow: var(--shadow-md);
-  }
 
   // Subtle inner highlight
   &::after {
@@ -558,30 +495,11 @@ $line-width:       1px;
   cursor: default;
   white-space: nowrap;
 
-  transition:
-    color        var(--duration-base) var(--ease-default),
-    background   var(--duration-base) var(--ease-default),
-    border-color var(--duration-base) var(--ease-default),
-    transform    var(--duration-slow) var(--ease-spring);
-
-  &:hover {
-    color: var(--color-text-primary);
-    background: var(--color-surface-2);
-    border-color: var(--color-border-strong);
-    transform: translateY(-1px);
-  }
 }
 
 // ─── Corner accents ────────────────────────────────────────────────────────────
 .exp__card-corner {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity var(--duration-slow) var(--ease-out);
-
-  .exp__card:hover & { opacity: 1; }
+  display: none;
 
   &--tl {
     top: -1px;

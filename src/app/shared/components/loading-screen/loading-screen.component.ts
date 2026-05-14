@@ -1,4 +1,4 @@
-import { Component, output, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, output, OnInit, OnDestroy, signal, ChangeDetectionStrategy } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { EASING } from '../../animations/animation.utils';
 
@@ -9,7 +9,7 @@ import { EASING } from '../../animations/animation.utils';
   animations: [
     trigger('screenExit', [
       state('visible', style({ opacity: 1, transform: 'scale(1)' })),
-      state('hidden',  style({ opacity: 0, transform: 'scale(1.08)', pointerEvents: 'none' })),
+      state('hidden',  style({ opacity: 0, transform: 'scale(1.08)' })),
       transition('visible => hidden', [
         animate(`750ms ${EASING.default}`),
       ]),
@@ -18,10 +18,12 @@ import { EASING } from '../../animations/animation.utils';
   templateUrl: './loading-screen.component.html',
   styleUrl:    './loading-screen.component.scss',
 })
-export class LoadingScreenComponent implements OnInit {
+export class LoadingScreenComponent implements OnInit, OnDestroy {
   readonly done = output<void>();
 
   readonly state = signal<'visible' | 'hidden'>('visible');
+
+  private emitted = false;
 
   ngOnInit(): void {
     setTimeout(() => {
@@ -29,8 +31,13 @@ export class LoadingScreenComponent implements OnInit {
     }, 2200);
   }
 
+  ngOnDestroy(): void {
+    this.emitted = true;
+  }
+
   onAnimationDone(): void {
-    if (this.state() === 'hidden') {
+    if (this.state() === 'hidden' && !this.emitted) {
+      this.emitted = true;
       this.done.emit();
     }
   }
