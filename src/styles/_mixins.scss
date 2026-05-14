@@ -1,0 +1,111 @@
+@use 'sass:map';
+
+// ─── Breakpoints ──────────────────────────────────────────────────────────────
+$breakpoints: (
+  'sm':  640px,
+  'md':  768px,
+  'lg':  1024px,
+  'xl':  1280px,
+  '2xl': 1440px,
+);
+
+@mixin respond-to($bp) {
+  @if map.has-key($breakpoints, $bp) {
+    @media (min-width: map.get($breakpoints, $bp)) { @content; }
+  } @else {
+    @warn 'Breakpoint `#{$bp}` not found.';
+  }
+}
+
+@mixin below($bp) {
+  @if map.has-key($breakpoints, $bp) {
+    @media (max-width: calc(map.get($breakpoints, $bp) - 1px)) { @content; }
+  }
+}
+
+// ─── Layout ───────────────────────────────────────────────────────────────────
+@mixin container {
+  width: 100%;
+  max-width: var(--container-xl);
+  margin-inline: auto;
+  padding-inline: var(--space-6);
+
+  @include respond-to('md') { padding-inline: var(--space-8); }
+  @include respond-to('lg') { padding-inline: var(--space-12); }
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+// ─── Visuals ──────────────────────────────────────────────────────────────────
+@mixin surface {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+}
+
+@mixin glass {
+  background: rgba(247, 246, 243, 0.75);
+  backdrop-filter: blur(14px) saturate(1.4);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+
+  [data-theme='dark'] & {
+    background: rgba(17, 17, 16, 0.8);
+    border-color: rgba(255, 255, 255, 0.07);
+  }
+}
+
+@mixin text-gradient($from: #111, $to: #666) {
+  background: linear-gradient(135deg, $from, $to);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+// ─── Animation ────────────────────────────────────────────────────────────────
+@mixin smooth-transition($props: all) {
+  transition: $props var(--transition-base);
+}
+
+@mixin hover-lift {
+  @include smooth-transition(transform);
+  &:hover { transform: translateY(-2px); }
+}
+
+// ─── Accessibility ────────────────────────────────────────────────────────────
+@mixin visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@mixin reduced-motion {
+  @media (prefers-reduced-motion: reduce) { @content; }
+}
+
+// ─── Utilities ────────────────────────────────────────────────────────────────
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin full-bleed {
+  width: 100vw;
+  margin-inline: calc(-50vw + 50%);
+}

@@ -1,0 +1,201 @@
+@use '../../../styles/mixins' as m;
+
+// ─── Navbar ────────────────────────────────────────────────────────────────────
+.navbar {
+  position: fixed;
+  top: 0;
+  inset-inline: 0;
+  z-index: 220; // Ensure header content stays above the mobile drawer
+  height: var(--navbar-height);
+  display: flex;
+  width: 100%;
+  align-items: center;
+  transition:
+    background var(--duration-slow) var(--ease-default),
+    border-color var(--duration-slow) var(--ease-default),
+    backdrop-filter var(--duration-slow) var(--ease-default);
+
+  &--scrolled {
+    @include m.glass;
+    box-shadow: var(--shadow-sm);
+  }
+}
+
+.navbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+
+  @include m.respond-to('lg') {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: var(--space-4);
+  }
+}
+
+// ─── Logo / Identity ───────────────────────────────────────────────────────────
+.navbar__logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  flex-shrink: 0;
+  margin-left: calc(var(--space-2) * -1); // Compensate for profile padding
+}
+
+// ─── Desktop Links ─────────────────────────────────────────────────────────────
+.navbar__links {
+  display: none;
+  align-items: center;
+  gap: var(--space-1);
+  flex: 1;
+  justify-content: center;
+
+  @include m.respond-to('lg') { display: flex; }
+}
+
+.navbar__link {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 450;
+  color: var(--color-text-secondary);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  transition:
+    color var(--transition-base),
+    background var(--transition-base);
+
+  &:hover {
+    color: var(--color-text-primary);
+    background: var(--color-accent-soft);
+  }
+}
+
+// ─── Actions ───────────────────────────────────────────────────────────────────
+.navbar__actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-3);
+}
+
+.navbar__theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  color: var(--color-text-secondary);
+  background: transparent;
+  transition:
+    color var(--transition-base),
+    background var(--transition-base);
+
+  &:hover {
+    color: var(--color-text-primary);
+    background: var(--color-accent-soft);
+  }
+}
+
+// ─── Hamburger ─────────────────────────────────────────────────────────────────
+.navbar__hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  padding: var(--space-2);
+
+  @include m.respond-to('lg') { display: none; }
+  position: relative;
+  z-index: 220; // Stay on top of full-screen drawer
+
+  span {
+    display: block;
+    height: 1.5px;
+    background: var(--color-text-primary);
+    border-radius: 2px;
+    transform-origin: center;
+    transition: transform var(--duration-base) var(--ease-default),
+                opacity var(--duration-base) var(--ease-default);
+  }
+
+  &--open span:first-child { transform: translateY(3.25px) rotate(45deg); }
+  &--open span:last-child  { transform: translateY(-3.25px) rotate(-45deg); }
+}
+
+// ─── Mobile Drawer Overlay ───────────────────────────────────────────────────
+.navbar__mobile {
+  position: fixed;
+  top: 0;
+  inset-inline: 0;
+  height: 100dvh;
+  z-index: 210; // Below header content, above backdrop
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-24) var(--space-6) var(--space-8);
+  background: var(--color-bg);
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform var(--duration-slower) var(--ease-default),
+    opacity var(--duration-slow) var(--ease-default);
+
+  // Subtle grid texture to match Hero
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, var(--color-border-strong) 1px, transparent 1px);
+    background-size: 36px 36px;
+    opacity: 0.25;
+    mask-image: linear-gradient(to bottom, black, transparent 80%);
+    pointer-events: none;
+  }
+
+  @include m.respond-to('lg') { display: none; }
+
+  &--open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+.navbar__mobile-links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.navbar__mobile-link {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 500;
+  color: var(--color-text-primary);
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--color-border);
+  transition: color var(--transition-base);
+
+  &:hover { color: var(--color-text-secondary); }
+}
+
+.navbar__mobile-cta {
+  margin-top: auto;
+  padding-top: var(--space-8);
+}
+
+// ─── Backdrop ──────────────────────────────────────────────────────────────────
+.navbar__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 205; // Between navbar and drawer
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+
+  @include m.respond-to('lg') { display: none; }
+}

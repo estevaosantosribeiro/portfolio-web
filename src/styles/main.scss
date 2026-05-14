@@ -1,0 +1,11 @@
+@use 'tokens';
+@use 'reset';
+@use 'typography';
+@use 'animations';
+
+// Body theme transition
+body {
+  transition:
+    background-color var(--duration-slow) var(--ease-default),
+    color var(--duration-slow) var(--ease-default);
+}

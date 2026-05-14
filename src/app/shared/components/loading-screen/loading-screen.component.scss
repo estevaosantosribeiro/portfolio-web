@@ -1,0 +1,148 @@
+.loading {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-loading, 400);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #090909;
+  overflow: hidden;
+}
+
+// ─── Background atmosphere ────────────────────────────────────────────────────
+.loading__bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.loading__orb {
+  position: absolute;
+  border-radius: 50%;
+
+  &--1 {
+    width: 70vmax;
+    height: 70vmax;
+    top: -15vmax;
+    left: -15vmax;
+    background: radial-gradient(
+      circle at 40% 40%,
+      rgba(60, 55, 50, 0.35) 0%,
+      transparent 65%
+    );
+    animation: float-orb 18s ease-in-out infinite;
+  }
+
+  &--2 {
+    width: 55vmax;
+    height: 55vmax;
+    bottom: -10vmax;
+    right: -10vmax;
+    background: radial-gradient(
+      circle at 60% 60%,
+      rgba(40, 38, 35, 0.3) 0%,
+      transparent 65%
+    );
+    animation: float-orb 24s ease-in-out infinite reverse;
+  }
+}
+
+// ─── Brand lockup ─────────────────────────────────────────────────────────────
+.loading__content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+
+.loading__brand {
+  display: flex;
+  align-items: baseline;
+  gap: clamp(0.75rem, 2vw, 1.5rem);
+  animation: fade-up 700ms 200ms cubic-bezier(0, 0, 0.2, 1) both;
+}
+
+.loading__name {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: clamp(1.8rem, 6vw, 2rem);
+  letter-spacing: -0.03em;
+  color: #ffffff;
+  line-height: 1.1;
+}
+
+.loading__divider {
+  display: block;
+  width: 1px;
+  height: clamp(1.2rem, 3vw, 2.2rem);
+  background: rgba(255, 255, 255, 0.2);
+  flex-shrink: 0;
+  align-self: center;
+}
+
+.loading__role {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  font-size: clamp(1.8rem, 6vw, 2rem);
+  letter-spacing: 0.01em;
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.1;
+}
+
+// ─── Shimmer sweep ────────────────────────────────────────────────────────────
+.loading__shimmer {
+  position: absolute;
+  inset: -4px;
+  background: linear-gradient(
+    105deg,
+    transparent 25%,
+    rgba(255, 255, 255, 0.18) 45%,
+    rgba(255, 255, 255, 0.4) 50%,
+    rgba(255, 255, 255, 0.18) 55%,
+    transparent 75%
+  );
+  pointer-events: none;
+  animation: shimmer-sweep 1.6s 500ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+// ─── Progress bar ─────────────────────────────────────────────────────────────
+.loading__progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+}
+
+.loading__progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+  transform-origin: left center;
+  animation: loading-bar 2s 200ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+// ─── Keyframes ────────────────────────────────────────────────────────────────
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float-orb {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(30px, -25px) scale(1.04); }
+  66%       { transform: translate(-20px, 30px) scale(0.97); }
+}
+
+@keyframes shimmer-sweep {
+  0%   { transform: translateX(-120%) skewX(-10deg); }
+  100% { transform: translateX(220%) skewX(-10deg); }
+}
+
+@keyframes loading-bar {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}

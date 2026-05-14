@@ -1,0 +1,12 @@
+<!-- Loading screen — shown before site reveal -->
+@if (loading()) {
+  <app-loading-screen (done)="onLoadingDone()"></app-loading-screen>
+}
+
+<!-- Main site — radial reveal after loading -->
+<div
+  class="page-wrapper"
+  [@pageReveal]="pageState()"
+>
+  <router-outlet></router-outlet>
+</div>

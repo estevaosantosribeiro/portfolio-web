@@ -1,0 +1,312 @@
+@use '../../../../../styles/mixins' as m;
+
+// ─── Section shell ─────────────────────────────────────────────────────────────
+.hero {
+  position: relative;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding-top: var(--navbar-height);
+}
+
+// ─── Background atmosphere ─────────────────────────────────────────────────────
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hero__orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+
+  &--1 {
+    width: clamp(500px, 55vw, 880px);
+    height: clamp(500px, 55vw, 880px);
+    top: -20%;
+    right: -12%;
+    background: radial-gradient(circle, rgba(180, 170, 155, 0.11) 0%, transparent 68%);
+    animation: float-orb 22s ease-in-out infinite;
+
+    [data-theme='dark'] & {
+      background: radial-gradient(circle, rgba(100, 95, 85, 0.14) 0%, transparent 68%);
+    }
+  }
+
+  &--2 {
+    width: clamp(300px, 38vw, 580px);
+    height: clamp(300px, 38vw, 580px);
+    bottom: -12%;
+    left: -6%;
+    background: radial-gradient(circle, rgba(160, 155, 145, 0.07) 0%, transparent 68%);
+    animation: float-orb 18s ease-in-out infinite reverse;
+
+    [data-theme='dark'] & {
+      background: radial-gradient(circle, rgba(80, 75, 68, 0.11) 0%, transparent 68%);
+    }
+  }
+}
+
+.hero__grid {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, var(--color-border-strong) 1px, transparent 1px);
+  background-size: 36px 36px;
+  opacity: 0.4;
+  mask-image: radial-gradient(ellipse 90% 80% at 50% 50%, black 20%, transparent 100%);
+}
+
+// ─── Content wrapper ───────────────────────────────────────────────────────────
+.hero__content {
+  position: relative;
+  z-index: var(--z-raised);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(var(--space-10), 3.8vw, var(--space-16));
+
+  width: 100%;
+  max-width: var(--container-2xl);
+  min-height: calc(100dvh - var(--navbar-height));
+  padding-inline: var(--space-6);
+  padding-block: var(--space-16);
+
+  @include m.respond-to('md')  { padding-inline: var(--space-8); }
+  @include m.respond-to('lg')  { padding-inline: var(--space-12); }
+  @include m.respond-to('2xl') { padding-inline: var(--space-16); }
+}
+
+// ─── ① Cinematic intro ─────────────────────────────────────────────────────────
+.hero__intro {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+}
+
+.hero__intro-line {
+  display: block;
+  flex-shrink: 0;
+  width: clamp(32px, 4.5vw, 64px);
+  height: 1px;
+  background: var(--color-border-strong);
+  transform-origin: left center;
+  // scaleX(0) initial state applied by GSAP before first paint
+}
+
+.hero__intro-text {
+  font-family: var(--font-body);
+  font-size: 2.125rem;
+  font-weight: 400;
+  color: var(--color-text-primary);
+  letter-spacing: 0.012em;
+
+  @include m.below('sm') {
+    font-size: var(--text-xs);
+  }
+}
+
+// ─── ② Display headline ────────────────────────────────────────────────────────
+.hero__name {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.9rem, 9.2vw, 8.5rem);
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  display: flex;
+  flex-direction: column;
+  gap: 0.08em;
+}
+
+.hero__name-static {
+  display: block;
+  font-weight: 300;
+  color: var(--color-text-primary);
+}
+
+// Second row: typed word + cursor — sits below the static word
+.hero__name-row {
+  display: flex;
+  align-items: baseline;
+  // Reserve enough horizontal space for the longest word ("Full-Stack" ≈ 10 chars)
+  // so the cursor position stays stable as shorter words appear.
+  // We use min-width rather than a fixed width so the container can shrink on mobile.
+  min-width: 0;
+}
+
+.hero__name-word {
+  display: inline;
+  font-weight: 300;
+  // font-style: italic;
+  // Subtle gradient — same family as static text, just lighter
+  background: linear-gradient(
+    130deg,
+    var(--color-text-primary)   0%,
+    var(--color-text-secondary) 60%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  // Prevent the span from collapsing to zero width between words,
+  // which would cause the cursor to snap left.
+  min-width: 0.25em;
+}
+
+// CSS-only cursor — no JS involvement in its animation.
+// Uses step-end so opacity changes instantaneously (real cursor feel).
+// Sits at baseline alongside the typed text thanks to `align-items: baseline`
+// on the parent row.
+.hero__cursor {
+  display: inline-block;
+  font-weight: 300;
+  font-style: italic;
+  // Same gradient as word so cursor blends rather than clashes
+  background: linear-gradient(
+    130deg,
+    var(--color-text-secondary) 0%,
+    var(--color-text-muted)     100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  // No margin/padding — tight baseline coupling
+  animation: cursor-blink 1s step-end infinite;
+  // Prevent cursor from causing layout reflow on opacity change
+  will-change: opacity;
+}
+
+// ─── ③ Meta row: description + socials | CTAs ─────────────────────────────────
+.hero__meta {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-12);
+
+  @include m.below('md') {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-8);
+  }
+}
+
+.hero__meta-left {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-7, 1.75rem);   // custom step between 6 and 8
+}
+
+// ─── Description ───────────────────────────────────────────────────────────────
+.hero__description {
+  font-family: var(--font-body);
+  font-size: clamp(var(--text-base), 1.4vw, var(--text-lg));
+  line-height: var(--leading-loose);
+  color: var(--color-text-secondary);
+  max-width: 42ch;
+
+  .hero__br {
+    @include m.below('lg') { display: none; }
+  }
+}
+
+// ─── Social links ──────────────────────────────────────────────────────────────
+.hero__socials {
+  display: flex;
+  align-items: center;
+  // Tighter gap — icons are visually grouped, not spread
+  gap: var(--space-1);
+  // Shift left by the icon's internal padding so icons optically
+  // align with the text edge above
+  margin-left: calc(var(--space-2) * -1);
+}
+
+.hero__social {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-full);
+  color: var(--color-text-muted);
+  transition:
+    color      var(--duration-base) var(--ease-default),
+    background var(--duration-base) var(--ease-default),
+    transform  var(--duration-base) var(--ease-default);
+
+  svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+
+  &:hover {
+    color: var(--color-text-primary);
+    background: var(--color-accent-soft);
+    transform: translateY(-2px);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+}
+
+// ─── CTA buttons ───────────────────────────────────────────────────────────────
+.hero__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-shrink: 0;
+
+  @include m.below('sm') {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+}
+
+// ─── Scroll cue ────────────────────────────────────────────────────────────────
+.hero__scroll {
+  display: none;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+
+  @include m.respond-to('lg') { display: flex; }
+}
+
+.hero__scroll-line {
+  width: 1px;
+  height: 44px;
+  background: linear-gradient(to bottom, var(--color-border-strong), transparent);
+  animation: scroll-line 2.2s ease-in-out infinite;
+}
+
+.hero__scroll-label {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+// ─── Keyframes ─────────────────────────────────────────────────────────────────
+@keyframes float-orb {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(40px, -30px) scale(1.03); }
+  66%       { transform: translate(-25px, 35px) scale(0.97); }
+}
+
+@keyframes cursor-blink {
+  0%, 49% { opacity: 1; }
+  50%, 99% { opacity: 0; }
+  100%     { opacity: 1; }
+}
+
+@keyframes scroll-line {
+  0%   { transform: scaleY(0); transform-origin: top; }
+  50%  { transform: scaleY(1); transform-origin: top; }
+  51%  { transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}

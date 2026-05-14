@@ -1,0 +1,30 @@
+<div
+  class="loading"
+  [@screenExit]="state()"
+  (@screenExit.done)="onAnimationDone()"
+  aria-hidden="true"
+  role="presentation"
+>
+  <!-- Atmospheric radial gradients -->
+  <div class="loading__bg">
+    <div class="loading__orb loading__orb--1"></div>
+    <div class="loading__orb loading__orb--2"></div>
+  </div>
+
+  <!-- Brand lockup -->
+  <div class="loading__content">
+    <div class="loading__brand">
+      <span class="loading__name">Estevão Santos</span>
+      <span class="loading__divider" aria-hidden="true"></span>
+      <span class="loading__role">Portfólio</span>
+    </div>
+
+    <!-- Shimmer overlay -->
+    <div class="loading__shimmer" aria-hidden="true"></div>
+  </div>
+
+  <!-- Progress line -->
+  <div class="loading__progress" aria-hidden="true">
+    <div class="loading__progress-bar"></div>
+  </div>
+</div>

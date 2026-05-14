@@ -1,0 +1,144 @@
+<section class="about" id="sobre" aria-labelledby="about-heading">
+
+  <div class="about__inner">
+
+    <!-- ─── Content column ──────────────────────────────────────────────────── -->
+    <div class="about__content">
+
+      <!-- Label -->
+      <div class="about__label" data-reveal>
+        <span class="about__label-line" aria-hidden="true"></span>
+        <span class="about__label-text">Sobre mim</span>
+      </div>
+
+      <!-- Heading -->
+      <h2 class="about__heading" id="about-heading" data-reveal>
+        Apaixonado por tecnologia,<br>
+        <span class="about__heading-accent">movido por propósito.</span>
+      </h2>
+
+      <!-- Body -->
+      <p class="about__body" data-reveal>
+        Desde 2023 construo soluções digitais que unem design cuidadoso
+        e engenharia sólida. Acredito que a tecnologia mais poderosa é a que
+        desaparece, o que fica é a experiência que ela cria. Cada projeto é
+        uma oportunidade de aprender algo novo e entregar algo que realmente
+        importa.
+      </p>
+
+      <!-- Experience cards -->
+      <div class="about__experiences" aria-label="Experiências">
+
+        @for (exp of experiences; track exp.id) {
+          <article class="about__exp-card" data-reveal>
+            <div class="about__exp-icon" aria-hidden="true">
+              @switch (exp.id) {
+                @case ('semear') {
+                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M10 17V9"/>
+                    <path d="M10 9C10 9 6 7 4 3c3.5.5 6 2.5 6 6z"/>
+                    <path d="M10 9C10 9 14 7 16 3c-3.5.5-6 2.5-6 6z"/>
+                    <path d="M7 17h6"/>
+                  </svg>
+                }
+                @case ('reuni') {
+                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M10 2l1.8 3.6L16 6.3l-3 2.9.7 4.1L10 11.4l-3.7 1.9.7-4.1-3-2.9 4.2-.7L10 2z"/>
+                  </svg>
+                }
+                @case ('startup-weekend') {
+                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2C9.5 4.5 8 8 9 12l-2 2-1-1-2 2 1 1-1 2 3-1 .5.5 2-2c4 1 7.5-.5 10-3C20 8.5 17.5 3 12 2z"/>
+                    <circle cx="13.5" cy="6.5" r="1"/>
+                  </svg>
+                }
+              }
+            </div>
+            <div class="about__exp-body">
+              <div class="about__exp-header">
+                <strong class="about__exp-title">{{ exp.title }}</strong>
+                <span class="about__exp-tag">{{ exp.tag }}</span>
+              </div>
+              <span class="about__exp-role">{{ exp.role }}</span>
+              <p class="about__exp-desc">{{ exp.description }}</p>
+            </div>
+          </article>
+        }
+
+      </div>
+    </div>
+
+    <!-- ─── Visual column ───────────────────────────────────────────────────── -->
+    <div class="about__visual" aria-hidden="true">
+      <div class="about__image-card">
+
+        <!-- Profile image — swap src when ready -->
+        <div class="about__image-frame">
+          <img
+            class="about__image"
+            src="/me.jpeg"
+            alt="Foto de Estevão Santos"
+            loading="lazy"
+            onerror="this.style.display='none'"
+          />
+          <!-- Gradient placeholder shown behind / when image fails -->
+          <div class="about__image-placeholder"></div>
+        </div>
+
+        <!-- Decorative grid overlay -->
+        <div class="about__image-grid"></div>
+
+        <!-- ── Floating badges ─────────────────────────────── -->
+        <div class="about__badge about__badge--tl">
+          <span class="about__badge-dot"></span>
+          Full-Stack Developer
+        </div>
+
+        <div class="about__badge about__badge--tr">
+          <span class="about__badge-dot about__badge-dot--green"></span>
+          Open to work
+        </div>
+
+        <div class="about__badge about__badge--bl">
+          <svg class="about__badge-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="1" y="3" width="14" height="11" rx="2"/>
+            <path d="M1 7h14M5 3V1M11 3V1"/>
+          </svg>
+          Since 2023
+        </div>
+
+        <div class="about__badge about__badge--br about__badge--stack">
+          Angular · React · .NET
+        </div>
+
+        <!-- Decorative corner accent -->
+        <div class="about__corner about__corner--tl"></div>
+        <div class="about__corner about__corner--br"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ─── Skills marquee ───────────────────────────────────────────────────── -->
+  <div class="about__skills">
+    <p class="about__skills-label">Stack tecnológico</p>
+
+    <div class="about__marquee" aria-label="Habilidades técnicas">
+      <div class="about__marquee-track" aria-hidden="true">
+        <!-- First copy -->
+        @for (skill of skills; track skill) {
+          <span class="about__skill-chip">{{ skill }}</span>
+        }
+        <!-- Second copy — makes the loop seamless -->
+        @for (skill of skills; track skill + '_b') {
+          <span class="about__skill-chip">{{ skill }}</span>
+        }
+      </div>
+    </div>
+
+    <!-- Fade masks on sides -->
+    <div class="about__marquee-fade about__marquee-fade--left"  aria-hidden="true"></div>
+    <div class="about__marquee-fade about__marquee-fade--right" aria-hidden="true"></div>
+  </div>
+
+</section>

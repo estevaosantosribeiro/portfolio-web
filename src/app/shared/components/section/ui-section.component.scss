@@ -1,0 +1,12 @@
+:host { display: block; }
+
+.section {
+  position: relative;
+
+  &--padded {
+    padding-block: var(--space-20);
+
+    @media (min-width: 768px)  { padding-block: var(--space-32); }
+    @media (min-width: 1024px) { padding-block: var(--space-40); }
+  }
+}

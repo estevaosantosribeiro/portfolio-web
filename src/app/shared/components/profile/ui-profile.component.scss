@@ -1,0 +1,83 @@
+@use '../../../../styles/mixins' as m;
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: background var(--transition-base);
+  user-select: none;
+
+  &:hover {
+    background: var(--color-accent-soft);
+  }
+}
+
+.profile__avatar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+  flex-shrink: 0;
+  transition: transform var(--transition-base);
+
+  .profile:hover & {
+    transform: scale(1.05);
+  }
+}
+
+.profile__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile__initial {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.profile__info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.profile__name {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 550;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  letter-spacing: var(--tracking-tight);
+
+  @include m.below('sm') {
+    display: none;
+  }
+}
+
+.profile__verified {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #3b82f6; // Classic verification blue
+  
+  [data-theme='dark'] & {
+    color: #60a5fa;
+  }
+
+  svg {
+    display: block;
+    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.05));
+  }
+}

@@ -1,0 +1,554 @@
+@use '../../../../../styles/mixins' as m;
+
+// ─── Section shell ─────────────────────────────────────────────────────────────
+.about {
+  position: relative;
+  padding-block: clamp(var(--space-20), 10vw, var(--space-40));
+  overflow: hidden;
+}
+
+// Top separator
+.about::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(640px, 90%);
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-border-strong) 30%,
+    var(--color-border-strong) 70%,
+    transparent
+  );
+}
+
+// ─── Two-column grid ───────────────────────────────────────────────────────────
+.about__inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(var(--space-16), 6vw, var(--space-24));
+  align-items: start;
+
+  width: 100%;
+  max-width: var(--container-2xl);
+  margin-inline: auto;
+  padding-inline: var(--space-6);
+
+  @include m.respond-to('md')  { padding-inline: var(--space-8); }
+  @include m.respond-to('lg')  {
+    grid-template-columns: 1fr 420px;
+    align-items: center;
+    padding-inline: var(--space-12);
+  }
+  @include m.respond-to('xl')  { grid-template-columns: 1fr 460px; }
+  @include m.respond-to('2xl') {
+    grid-template-columns: 1fr 480px;
+    padding-inline: var(--space-16);
+  }
+}
+
+// ─── Content column ────────────────────────────────────────────────────────────
+.about__content {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(var(--space-8), 3vw, var(--space-12));
+  max-width: 640px;
+}
+
+// Section label — mirrors hero intro
+.about__label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+}
+
+.about__label-line {
+  display: block;
+  flex-shrink: 0;
+  width: clamp(24px, 3.5vw, 48px);
+  height: 1px;
+  background: var(--color-border-strong);
+}
+
+.about__label-text {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--color-text-muted);
+  letter-spacing: 0.012em;
+}
+
+// Heading
+.about__heading {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2rem, 4.5vw, 3.5rem);
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  color: var(--color-text-primary);
+}
+
+.about__heading-accent {
+  font-weight: 300;
+  font-style: italic;
+  background: linear-gradient(
+    130deg,
+    var(--color-text-primary)   0%,
+    var(--color-text-secondary) 70%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+// Body paragraph
+.about__body {
+  font-family: var(--font-body);
+  font-size: clamp(var(--text-base), 1.3vw, var(--text-lg));
+  line-height: var(--leading-loose);
+  color: var(--color-text-secondary);
+  max-width: 52ch;
+}
+
+// ─── Experience cards ──────────────────────────────────────────────────────────
+.about__experiences {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.about__exp-card {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: var(--space-5);
+  align-items: start;
+
+  padding: var(--space-5) var(--space-6);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  cursor: default;
+  transition:
+    border-color var(--duration-base) var(--ease-default),
+    background   var(--duration-base) var(--ease-default),
+    transform    var(--duration-slow) var(--ease-out),
+    box-shadow   var(--duration-slow) var(--ease-out);
+
+  &:hover {
+    border-color: var(--color-border-strong);
+    background: var(--color-surface-2);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+}
+
+.about__exp-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-lg);
+  background: var(--color-accent-soft);
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+  margin-top: 2px;
+  transition: background var(--duration-base) var(--ease-default);
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .about__exp-card:hover & {
+    background: var(--color-border-strong);
+  }
+}
+
+.about__exp-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.about__exp-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.about__exp-title {
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.about__exp-tag {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  background: var(--color-accent-soft);
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-full);
+  letter-spacing: 0.01em;
+}
+
+.about__exp-role {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+.about__exp-desc {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: var(--leading-normal);
+  color: var(--color-text-secondary);
+  margin-top: var(--space-2);
+}
+
+// ─── Visual column ─────────────────────────────────────────────────────────────
+.about__visual {
+  position: relative;
+  // On mobile: constrain and center the card
+  max-width: 420px;
+  margin-inline: auto;
+  width: 100%;
+
+  @include m.respond-to('lg') {
+    max-width: none;
+    margin-inline: 0;
+  }
+}
+
+// ─── Image card ────────────────────────────────────────────────────────────────
+.about__image-card {
+  position: relative;
+  border-radius: var(--radius-2xl);
+  overflow: visible; // badges overflow the card
+  // Card itself clips the image
+}
+
+.about__image-frame {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-lg);
+  // Subtle inner highlight at top
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.04) 0%,
+      transparent 40%
+    );
+    pointer-events: none;
+    z-index: 2;
+  }
+}
+
+// The actual image — sits above the placeholder
+.about__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  z-index: 1;
+  // Atmospheric bottom fade so the card blends with the section
+  mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+}
+
+// Warm gradient placeholder — visible when image is absent or loading
+.about__image-placeholder {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse 70% 50% at 40% 30%,
+      rgba(180, 170, 155, 0.18) 0%,
+      transparent 70%
+    ),
+    linear-gradient(
+      160deg,
+      var(--color-bg-secondary)  0%,
+      var(--color-surface-2)     40%,
+      var(--color-surface)       100%
+    );
+
+  [data-theme='dark'] & {
+    background:
+      radial-gradient(
+        ellipse 70% 50% at 40% 30%,
+        rgba(100, 95, 85, 0.2) 0%,
+        transparent 70%
+      ),
+      linear-gradient(
+        160deg,
+        var(--color-bg-secondary) 0%,
+        var(--color-surface-2)    50%,
+        var(--color-surface)      100%
+      );
+  }
+}
+
+// Subtle dot-grid overlay on the placeholder
+.about__image-grid {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-2xl);
+  background-image: radial-gradient(circle, var(--color-border-strong) 1px, transparent 1px);
+  background-size: 28px 28px;
+  opacity: 0.5;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, black 20%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+// Corner accent lines
+.about__corner {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  pointer-events: none;
+
+  &--tl {
+    top: -6px;
+    left: -6px;
+    border-top: 2px solid var(--color-border-strong);
+    border-left: 2px solid var(--color-border-strong);
+    border-radius: var(--radius-sm) 0 0 0;
+  }
+
+  &--br {
+    bottom: -6px;
+    right: -6px;
+    border-bottom: 2px solid var(--color-border-strong);
+    border-right: 2px solid var(--color-border-strong);
+    border-radius: 0 0 var(--radius-sm) 0;
+  }
+}
+
+// ─── Floating badges ───────────────────────────────────────────────────────────
+.about__badge {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  z-index: 10;
+  cursor: default;
+
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-md);
+  color: var(--color-text-secondary);
+
+  transition:
+    transform    var(--duration-slow) var(--ease-spring),
+    box-shadow   var(--duration-slow) var(--ease-out),
+    border-color var(--duration-base) var(--ease-default);
+
+  &:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-border-strong);
+  }
+
+  // Positions
+  &--tl {
+    top: 12%;
+    left: -12%;
+    @include m.below('lg') { left: -4%; top: 8%; }
+  }
+
+  &--tr {
+    top: 6%;
+    right: -10%;
+    @include m.below('lg') { right: -4%; }
+  }
+
+  &--bl {
+    bottom: 18%;
+    left: -12%;
+    @include m.below('lg') { left: -4%; }
+  }
+
+  &--br {
+    bottom: 10%;
+    right: -10%;
+    @include m.below('lg') { right: -4%; }
+  }
+
+  &--stack {
+    font-size: 10px;
+    letter-spacing: 0.03em;
+    color: var(--color-text-muted);
+  }
+}
+
+.about__badge-dot {
+  display: block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-text-muted);
+  flex-shrink: 0;
+
+  &--green {
+    background: #4ade80;
+    box-shadow: 0 0 6px rgba(74, 222, 128, 0.5);
+    animation: pulse-dot 2.4s ease-in-out infinite;
+  }
+}
+
+.about__badge-icon {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+  color: var(--color-text-muted);
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1;    transform: scale(1); }
+  50%       { opacity: 0.65; transform: scale(0.85); }
+}
+
+// ─── Skills marquee ────────────────────────────────────────────────────────────
+.about__skills {
+  position: relative;
+  margin-top: clamp(var(--space-20), 8vw, var(--space-32));
+  padding-top: clamp(var(--space-12), 4vw, var(--space-16));
+  overflow: hidden;
+
+  // Top separator
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(480px, 80%);
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--color-border-strong) 30%,
+      var(--color-border-strong) 70%,
+      transparent
+    );
+  }
+}
+
+.about__skills-label {
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-8);
+}
+
+.about__marquee {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  // Use a mask so chips fade in/out at edges
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 12%,
+    black 88%,
+    transparent 100%
+  );
+}
+
+.about__marquee-track {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: max-content;
+  animation: marquee-scroll 36s linear infinite;
+  will-change: transform;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    padding-inline: var(--space-8);
+  }
+}
+
+.about__skill-chip {
+  display: inline-flex;
+  align-items: center;
+  height: 34px;
+  padding-inline: var(--space-5);
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 450;
+  color: var(--color-text-secondary);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  white-space: nowrap;
+  cursor: default;
+  transition:
+    color        var(--duration-base) var(--ease-default),
+    background   var(--duration-base) var(--ease-default),
+    border-color var(--duration-base) var(--ease-default);
+
+  &:hover {
+    color: var(--color-text-primary);
+    background: var(--color-surface-2);
+    border-color: var(--color-border-strong);
+  }
+}
+
+// Side fade overlays — backup for browsers without mask-image
+.about__marquee-fade {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  pointer-events: none;
+  z-index: 2;
+
+  &--left {
+    left: 0;
+    background: linear-gradient(to right, var(--color-bg), transparent);
+  }
+
+  &--right {
+    right: 0;
+    background: linear-gradient(to left, var(--color-bg), transparent);
+  }
+}
+
+// ─── Marquee keyframe ──────────────────────────────────────────────────────────
+// Track is doubled → animating -50% returns to start = seamless loop
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
