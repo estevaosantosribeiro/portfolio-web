@@ -13,6 +13,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { gsap } from 'gsap';
 import { UiButtonComponent } from '../../../../shared/components/button/ui-button.component';
 import { HeroCanvasComponent } from '../hero-canvas/hero-canvas.component';
+import { ScrollService } from '../../../../core/services/scroll.service';
 
 // ─── Typewriter config ─────────────────────────────────────────────────────────
 const WORDS: readonly string[] = ['Full-Stack', 'Front-end', 'Back-end'];
@@ -36,6 +37,7 @@ const TIMING = {
 export class HeroComponent implements AfterViewInit, OnDestroy {
 
   private readonly platformId   = inject(PLATFORM_ID);
+  private readonly scrollSvc    = inject(ScrollService);
   private readonly contentRef   = viewChild<ElementRef<HTMLElement>>('heroContent');
   private readonly introLineRef = viewChild<ElementRef<HTMLElement>>('introLine');
 
@@ -47,6 +49,10 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
   private wordIndex = 0;
   private charIndex = 0;
   private timerId?: ReturnType<typeof setTimeout>;
+
+  navigate(anchor: string): void {
+    this.scrollSvc.scrollTo(anchor);
+  }
 
   // ─── Lifecycle ────────────────────────────────────────────────────────────────
   ngAfterViewInit(): void {

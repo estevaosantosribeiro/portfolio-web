@@ -91,10 +91,10 @@
       </div>
 
       <div class="hero__actions">
-        <ui-button [variant]="'primary'" [size]="'lg'" [ariaLabel]="'Ver meus projetos'">
+        <ui-button [variant]="'primary'" [size]="'lg'" [ariaLabel]="'Ver meus projetos'" (clicked)="navigate('#projetos')">
           Ver projetos
         </ui-button>
-        <ui-button [variant]="'ghost'" [size]="'lg'" [ariaLabel]="'Saiba mais sobre mim'">
+        <ui-button [variant]="'ghost'" [size]="'lg'" [ariaLabel]="'Saiba mais sobre mim'" (clicked)="navigate('#sobre')">
           Sobre mim
         </ui-button>
       </div>
