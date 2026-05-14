@@ -5,7 +5,11 @@
       "Bash(npx ng *)",
       "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\dispo\\\\OneDrive\\\\Documentos\\\\Estevão\\\\Projetos Pessoais\\\\portfolio-web\" -Force)",
       "Bash(Select-Object Name, Mode)",
-      "Bash(Format-Table -AutoSize)"
+      "Bash(Format-Table -AutoSize)",
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\dispo\\\\OneDrive\\\\Documentos\\\\Estevão\\\\Projetos Pessoais\\\\portfolio-web\" -Recurse -Directory)",
+      "Bash(Select-Object -ExpandProperty FullName)",
+      "Bash(Sort-Object)",
+      "Bash(npx tsc *)"
     ]
   }
 }
