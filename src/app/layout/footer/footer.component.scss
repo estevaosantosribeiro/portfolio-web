@@ -1,0 +1,183 @@
+@use '../../../styles/mixins' as *;
+
+// ─── Footer shell ─────────────────────────────────────────────────────────────
+
+.footer {
+  position: relative;
+  background: var(--color-bg-secondary);
+  border-top: 1px solid var(--color-border);
+  overflow: hidden;
+}
+
+// Radial ambient accent
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 300px;
+  background: radial-gradient(ellipse at top, var(--color-accent-soft) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+// ─── Inner container ──────────────────────────────────────────────────────────
+
+.footer__inner {
+  @include container;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  padding-block: var(--space-12);
+}
+
+// ─── Top row ──────────────────────────────────────────────────────────────────
+
+.footer__top {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);
+}
+
+// ─── Identity ─────────────────────────────────────────────────────────────────
+
+.footer__identity {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.footer__name {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text-primary);
+}
+
+.footer__tagline {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: var(--leading-normal);
+}
+
+// ─── Navigation ───────────────────────────────────────────────────────────────
+
+.footer__nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-6);
+}
+
+.footer__nav-link {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: color var(--duration-base) var(--ease-default),
+              transform var(--duration-base) var(--ease-default);
+  display: inline-block;
+
+  &:hover {
+    color: var(--color-text-primary);
+    transform: translateX(3px);
+  }
+
+  @include reduced-motion {
+    &:hover { transform: none; }
+  }
+}
+
+// ─── Socials ──────────────────────────────────────────────────────────────────
+
+.footer__socials {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.footer__social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+  background: transparent;
+  text-decoration: none;
+  transition:
+    color var(--duration-base) var(--ease-default),
+    border-color var(--duration-base) var(--ease-default),
+    background var(--duration-base) var(--ease-default),
+    transform var(--duration-base) var(--ease-default);
+
+  &:hover {
+    color: var(--color-text-primary);
+    border-color: var(--color-border-strong);
+    background: var(--color-accent-soft);
+    transform: translateY(-2px);
+  }
+
+  @include reduced-motion {
+    &:hover { transform: none; }
+  }
+}
+
+// ─── Divider ──────────────────────────────────────────────────────────────────
+
+.footer__divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-border-strong) 20%,
+    var(--color-border-strong) 80%,
+    transparent
+  );
+}
+
+// ─── Bottom row ───────────────────────────────────────────────────────────────
+
+.footer__bottom {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  align-items: flex-start;
+
+  @include respond-to('sm') {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.footer__copy,
+.footer__built {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.footer__built {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.footer__angular-icon {
+  width: 14px;
+  height: 14px;
+  color: #dd0031;
+  flex-shrink: 0;
+}
