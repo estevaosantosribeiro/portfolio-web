@@ -47,10 +47,10 @@ export class FooterComponent implements AfterViewInit, OnDestroy {
   ];
 
   readonly socials: SocialLink[] = [
-    { label: 'GitHub',    url: 'https://github.com',    icon: 'github'    },
-    { label: 'LinkedIn',  url: 'https://linkedin.com',  icon: 'linkedin'  },
-    { label: 'Instagram', url: 'https://instagram.com', icon: 'instagram' },
-    { label: 'E-mail',    url: 'mailto:estevaosantosribeiro@gmail.com', icon: 'email' },
+    { label: 'GitHub',    url: 'https://github.com/estevaosantosribeiro',          icon: 'github'    },
+    { label: 'LinkedIn',  url: 'https://linkedin.com/in/estevao-santos-ribeiro',   icon: 'linkedin'  },
+    { label: 'Instagram', url: 'https://instagram.com/estevaosantosribeiro',       icon: 'instagram' },
+    { label: 'E-mail',    url: 'mailto:estevaosantosribeiro@gmail.com',            icon: 'email'     },
   ];
 
   scrollTo(anchor: string): void {

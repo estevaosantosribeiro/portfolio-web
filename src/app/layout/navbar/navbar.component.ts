@@ -67,4 +67,11 @@ export class NavbarComponent implements OnInit {
     this.closeMenu();
     this.scrollSvc.scrollTo(anchor);
   }
+
+  openWhatsApp(): void {
+    this.closeMenu();
+    if (isPlatformBrowser(this.platformId)) {
+      window.open('https://wa.me/5549999149898', '_blank', 'noopener,noreferrer');
+    }
+  }
 }
