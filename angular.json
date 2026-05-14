@@ -24,9 +24,7 @@
                 "input": "public"
               }
             ],
-            "styles": [
-              "src/styles/main.scss"
-            ],
+            "styles": ["src/styles/main.scss"],
             "server": "src/main.server.ts",
             "outputMode": "server",
             "security": {
@@ -34,7 +32,8 @@
             },
             "ssr": {
               "entry": "src/server.ts"
-            }
+            },
+            "outputPath": "dist/portfolio-web"
           },
           "configurations": {
             "production": {
@@ -74,6 +73,15 @@
         },
         "test": {
           "builder": "@angular/build:unit-test"
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {
+            "baseHref": "https://estevaosantosribeiro.github.io/portfolio-web/",
+            "repo": "https://github.com/estevaosantosribeiro/portfolio-web.git",
+            "name": "Estevão Santos Ribeiro",
+            "email": "estevaosantosribeiro@gmail.com"
+          }
         }
       }
     }
