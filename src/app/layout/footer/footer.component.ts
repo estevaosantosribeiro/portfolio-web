@@ -50,7 +50,7 @@ export class FooterComponent implements AfterViewInit, OnDestroy {
     { label: 'GitHub',    url: 'https://github.com',    icon: 'github'    },
     { label: 'LinkedIn',  url: 'https://linkedin.com',  icon: 'linkedin'  },
     { label: 'Instagram', url: 'https://instagram.com', icon: 'instagram' },
-    { label: 'E-mail',    url: 'mailto:estevao@ueek.digital', icon: 'email' },
+    { label: 'E-mail',    url: 'mailto:estevaosantosribeiro@gmail.com', icon: 'email' },
   ];
 
   scrollTo(anchor: string): void {
